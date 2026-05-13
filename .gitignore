@@ -1,0 +1,22 @@
+.venv/
+venv/
+env/
+
+__pycache__/
+*.pyc
+
+# data/users.json
+# data/*.db
+
+applio/
+downloads/
+processed/
+temp_*/
+
+.idea/
+.vscode/
+
+.env
+secrets.toml
+
+*.log

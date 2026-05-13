@@ -1,0 +1,9 @@
+python-telegram-bot==20.7
+requests
+torch
+torchaudio
+demucs
+ffmpeg-python
+librosa
+soundfile
+numpy
