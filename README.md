@@ -1,324 +1,135 @@
-\# 🎭 MashuperBot — RVC Voice Changer Bot
-
-
+# 🎭 MashuperBot — RVC Voice Changer Bot
 
 <div align="center">
 
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
+![Aiogram](https://img.shields.io/badge/Aiogram-3.16.0-green)
+![RVC](https://img.shields.io/badge/RVC-Applio-orange)
+![License](https://img.shields.io/badge/License-MIT-yellow)
 
+**Telegram-бот для создания мешапов с преобразованием голоса через RVC**
 
-!\[Python](https://img.shields.io/badge/Python-3.10%2B-blue)
-
-!\[Aiogram](https://img.shields.io/badge/Aiogram-3.16.0-green)
-
-!\[RVC](https://img.shields.io/badge/RVC-Applio-orange)
-
-!\[License](https://img.shields.io/badge/License-MIT-yellow)
-
-
-
-\*\*Telegram-бот для создания мешапов с преобразованием голоса через RVC\*\*
-
-
-
-\[!\[Telegram](https://img.shields.io/badge/Telegram-Канал-2CA5E0?style=for-the-badge\&logo=telegram\&logoColor=white)](https://t.me/ваш\_канал)
-
-
+[![Telegram](https://img.shields.io/badge/Telegram-Канал-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/bearcodex)
 
 </div>
 
+---
 
-
-\---
-
-
-
-\## ✨ Что умеет бот
-
-
+## ✨ Что умеет бот
 
 | Функция | Описание |
-
 |---------|----------|
+| 🎤 **Разделение вокала** | Demucs разделяет аудио на вокал и инструментал |
+| 🎭 **Конвертация голоса** | Applio RVC изменяет тембр голоса |
+| 🔊 **Склейка треков** | Обработанный вокал + оригинальный инструментал |
+| 🎚 **Регулировка громкости** | От 50% до 200% относительно исходника |
+| 📊 **Статистика** | 3 обработки в день для обычных пользователей |
+| 👑 **Админ-панель** | Управление пользователями, рассылки, статистика |
 
-| 🎤 \*\*Разделение вокала\*\* | Demucs разделяет аудио на вокал и инструментал |
+---
 
-| 🎭 \*\*Конвертация голоса\*\* | Applio RVC изменяет тембр голоса |
+## 🚀 Установка и запуск
 
-| 🔊 \*\*Склейка треков\*\* | Обработанный вокал + оригинальный инструментал |
+### 1. Установите Applio
 
-| 🎚 \*\*Регулировка громкости\*\* | От 50% до 200% относительно исходника |
+> **Важно:** Applio должен быть **запущен на порту 6969** до старта бота.
 
-| 📊 \*\*Статистика\*\* | 3 обработки в день для обычных пользователей |
+Почему Applio, а не RVC WebUI? RVC WebUI не обновляется (на 2026 год поддержка Blackwell отсутствует), зависимости типа PyTorch устарели, CUDA 13-го поколения не поддерживается, CPU режим — слишком медленно.
 
-| 👑 \*\*Админ-панель\*\* | Управление пользователями, рассылки, статистика |
+[Скачать Applio](https://github.com/IAHispano/Applio)
 
-
-
-\---
-
-
-
-\## 🚀 Установка и запуск
-
-
-
-\### 1. Установите Applio (инструмент для преобразования голоса)
-
-
-
-> \*\*Важно:\*\* Applio должен быть \*\*запущен на порту 6969\*\* до старта бота.
-
-
-
-Через него идёт инференс голосовой дорожки. Почему Applio, а не RVC WebUI?
-
-\- RVC WebUI не обновляется (на 2026 год поддержка Blackwell отсутствует)
-
-\- Зависимости типа PyTorch устарели
-
-\- CUDA 13-го поколения не поддерживается
-
-\- CPU режим — слишком медленно
-
-
-
-\[Скачать Applio](https://github.com/IAHispano/Applio)
-
-
-
-\## 2. Установите зависимости
-
-
-
-Установите зависимости проекта:
-
-
-
-```bash
+### 2. Установите зависимости
 
 pip install -r requirements.txt
 
-```
+### ⚠️ Важно про PyTorch
 
-
-
-\### ⚠️ Важно про PyTorch
-
-
-
-Если у вас NVIDIA + CUDA, убедитесь, что PyTorch установлен с поддержкой вашей версии CUDA.  
-
-Иначе Demucs будет работать через CPU, а это очень медленно.
-
-
+Если у вас NVIDIA + CUDA, убедитесь, что PyTorch установлен с поддержкой вашей версии CUDA. Иначе Demucs будет работать через CPU, а это очень медленно.
 
 Пример для CUDA 12.x:
-
-
-
-```bash
-
 pip install torch torchaudio --index-url https://download.pytorch.org/whl/cu121
 
-```
+Если у вас AMD, Intel или нет CUDA — Applio может не заработать без NVIDIA GPU. Варианты: использовать CPU (очень медленно) либо адаптировать инференс под RVC WebUI с DirectML/ROCm.
 
+---
 
+### 3. Настройте config.py
 
-Если у вас AMD, Intel или нет CUDA — Applio может не заработать без NVIDIA GPU.
+BOT_TOKEN = "токен_твоего_бота"
 
+Остальные параметры (Applio URL, pitch map и т.д.) можно оставить по умолчанию.
 
+---
 
-В таком случае варианты такие:
-
-
-
-\- использовать CPU (очень медленно),
-
-\- либо адаптировать инференс под RVC WebUI с DirectML/ROCm.
-
-
-
-\---
-
-
-
-\## 3. Настройте `config.py`
-
-
-
-```python
-
-BOT\_TOKEN = "токен\_твоего\_бота"
-
-```
-
-
-
-Остальные параметры (`Applio URL`, pitch map и т.д.) можно оставить по умолчанию.
-
-
-
-\---
-
-
-
-\## 4. Запустите бота
-
-
-
-```bash
+### 4. Запустите бота
 
 python bot.py
 
-```
-
-
-
 Готово 🎉
 
+---
 
+## 🎤 Добавление своих голосов
 
-\# 🎤 Добавление своих голосов
+Откройте `bot.py` и найдите переменную `AVAILABLE_VOICES`. Добавьте новую модель:
 
+"my_voice": {
+    "name": "Мой голос",
+    "lang": "Русский",
+    "gender": "Мужской",
+    "pitch_map": {
+        "Грубый мужской": -18,
+        "Мужской": -20,
+        "Грубый женский": -21,
+        "Женский": -24
+    }
+},
 
+---
 
-Откройте `bot.py` и найдите переменную:
-
-
-
-```python
-
-AVAILABLE\_VOICES
-
-```
-
-
-
-Добавьте новую модель:
-
-
-
-```python
-
-"my\_voice": {
-
-&#x20;       "name": "Мой голос", "lang": "Русский", "gender": "Мужской",
-
-&#x20;       "pitch\_map": {"Грубый мужской": -18, "Мужской": -20, "Грубый женский": -21, "Женский": -24}
-
-&#x20;   },
-
-```
-
-
-
-\---
-
-
-
-\# 📁 Подготовка модели
-
-
+## 📁 Подготовка модели
 
 В папке `logs` (где установлен Applio) создайте папку с именем модели:
 
-
-
-```text
-
-applio/logs/my\_voice/
-
-```
-
-
+applio/logs/my_voice/
 
 Поместите туда файлы модели:
-
-
-
-```text
-
-my\_voice.pth
-
-my\_voice.index
-
-```
-
-
+- my_voice.pth
+- my_voice.index
 
 > ⚠️ Названия `.pth`, `.index`, папки и ключа модели должны полностью совпадать.
 
-
-
-Пример:
-
-
-
-```text
-
+Пример структуры:
 logs/
+└── my_voice/
+    ├── my_voice.pth
+    └── my_voice.index
 
-└── my\_voice/
+---
 
-&#x20;   ├── my\_voice.pth
+## 💡 Советы
 
-&#x20;   └── my\_voice.index
+- Для быстрой обработки рекомендуется NVIDIA GPU
+- Без CUDA обработка может занимать несколько минут
+- Голоса сохраняются для каждого пользователя отдельно
+- Админ-панель запускается параллельно с ботом
+- Если появляются ошибки инференса — сначала проверьте Applio и CUDA
 
-```
+---
 
-
-
-\---
-
-
-
-\# 💡 Советы
-
-
-
-\- Для быстрой обработки рекомендуется NVIDIA GPU
-
-\- Без CUDA обработка может занимать несколько минут
-
-\- Голоса сохраняются для каждого пользователя отдельно
-
-\- Админ-панель запускается параллельно с ботом
-
-\- Если появляются ошибки инференса — сначала проверьте Applio и CUDA
-
-
-
-\---
-
-
-
-\# 🤝 Поддержка проекта
-
-
+## 🤝 Поддержка проекта
 
 <div align="center">
 
-
-
-\[!\[DonateAlerts](https://img.shields.io/badge/DonateAlerts-Поддержать-orange?style=for-the-badge)](https://www.donationalerts.com/r/bearcodexdev)
-
-
+[![DonateAlerts](https://img.shields.io/badge/DonateAlerts-Поддержать-orange?style=for-the-badge)](https://www.donationalerts.com/r/bearcodexdev)
 
 </div>
 
-
-
-\---
-
-
+---
 
 <div align="center">
 
-
-
 <sub>Made with ☕, BearCodex (bearcodexx)</sub>
-
-
 
 </div>
 
