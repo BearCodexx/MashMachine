@@ -5,8 +5,9 @@ env/
 __pycache__/
 *.pyc
 
-# data/users.json
-# data/*.db
+data/users.json
+data/*.db
+config.py
 
 applio/
 downloads/
