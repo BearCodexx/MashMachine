@@ -7,7 +7,6 @@ __pycache__/
 
 data/users.json
 data/*.db
-config.py
 
 applio/
 downloads/
@@ -21,3 +20,4 @@ temp_*/
 secrets.toml
 
 *.log
+*.zip

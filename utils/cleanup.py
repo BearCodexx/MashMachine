@@ -3,9 +3,12 @@ import shutil
 
 def cleanup_files(*paths): # удаляет временные файлы и папки
     for path in paths:
-        if path is None:
+        if not path:
             continue
-        if os.path.isfile(path):
-            os.remove(path)
-        elif os.path.isdir(path):
-            shutil.rmtree(path, ignore_errors=True)
+        try:
+            if os.path.isfile(path) or os.path.islink(path):
+                os.remove(path)
+            elif os.path.isdir(path):
+                shutil.rmtree(path, ignore_errors=True)
+        except OSError:
+            pass

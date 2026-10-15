@@ -1,13 +1,16 @@
 import subprocess
 import os
+from config import FFMPEG_PATH
 
-def merge_vocals_instrumental(vocal_path, instrumental_path, output_path): # склеиваем через ffmpeg
+def merge_vocals_instrumental(vocal_path, instrumental_path, output_path): # склейка вокала и инструментала без потери громкости
     cmd = [
-        "ffmpeg",
+        FFMPEG_PATH,
         "-i", vocal_path,
         "-i", instrumental_path,
-        "-filter_complex", "amix=inputs=2:duration=longest",
+        "-filter_complex", "amix=inputs=2:duration=longest:dropout_transition=0:weights=1 1",
         "-y", output_path
     ]
-    subprocess.run(cmd, check=True)
+    res = subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True)
+    if res.returncode != 0:
+        raise RuntimeError(f"ошибка ffmpeg при склейке: {res.stderr}")
     return output_path
